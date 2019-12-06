@@ -1,0 +1,42 @@
+{% load humanize %}
+<div class='table-responsive-md' id='page_table'>
+	<table class='table'>
+		<colgroup>
+			<col width='60%' />
+			<col width='40%' />
+		</colgroup>
+		<tbody>
+			<tr>
+				<td scope='row'></td>
+				<td>
+					<table class='table'>
+						<colgroup>
+							<col width='35%' />
+							<col width='65%' />
+						</colgroup>
+						<tbody>
+							<tr><td colspan="2" style="font-size:2vw;">{{sangpum_data.st_name}}</td></tr>
+							<tr><td scope='row'>판매가</td><td>{{sangpum_data.st_price|intcomma}}</td></tr>
+							<tr><td scope='row'>재고량</td><td>{{sangpum_data.st_quantity|intcomma}}</td></tr>
+							<tr>
+								<td scope='row'>구매수량</td>
+								<td>
+									<form action="#">{% csrf_token %}
+										<input type="number" id="sd_quantity" name="quantity" value="1" >
+										<input type="hidden" id="sd_price" value="{{sangpum_data.st_price}}" >
+										<input type="hidden" id="sd_id" value="{{sangpum_data.id}}" >
+										<input type="hidden" id="sd_quantity_total" value="{{sangpum_data.st_quantity}}" >
+									</form>
+								</td>
+							</tr>
+							<tr><td id="sd_total" class="text-right" colspan="2">총 상품금액(수량) : {{sangpum_data.st_price|intcomma }}원(1개)</td></tr>
+						</tbody>
+					</table>
+					<div class="text-center">
+						<a id='sd_submit' href="javascript:ajaxGuset.sangpum_order_page('{{sangpum_data.id}}', '1')" class="btn btn-secondary btn-lg">구매하기</a>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
